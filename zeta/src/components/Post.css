@@ -1,0 +1,76 @@
+#post{
+    width: 100%;
+    background-color: var(--white-900);
+    padding: 1rem;
+    border: none;
+    border-radius: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+}
+
+#post .headerPost{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--black-500);
+    font-size: .8rem;
+}
+
+#post .bodyPost{
+    text-align: justify;
+}
+
+#post .footerPost{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: .5rem;
+    position: relative;
+    width: 100%;
+}
+
+.footerPost button{
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.btnComments, .btnDelete{
+    font-size: 1.5rem;
+    color: var(--black-500);
+}
+
+#confirmDelete{
+    position: absolute;
+    top: 180%; 
+    right: 0%;
+    max-width: 300px;
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: var(--black-500);
+    padding: 1rem;
+    color: var(--white-900);
+    border: none;
+    border-radius: 20px;
+    
+}
+
+#confirmDelete > div{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+#confirmDelete > div > button{
+    border: none;
+    border-radius: 10px;
+    padding: .3rem;
+    cursor: pointer;
+    color: var(--white-900);
+}
+
+#confirmDelete .visible{
+    display: flex;
+}

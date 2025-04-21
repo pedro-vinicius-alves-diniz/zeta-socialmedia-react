@@ -1,0 +1,22 @@
+:root{
+  --white-900: #fff;
+  --white-500: #cacaca;
+  
+  --black-900: #000;
+  --black-700: #1d1d1d;
+  --black-500: #4c4c4c;
+}
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0; 
+}
+
+body{
+  font-family: "Poppins", sans-serif;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--black-700);
+}
