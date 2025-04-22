@@ -8,11 +8,11 @@ import { remove, ref, get } from "firebase/database";
 
 import React from "react";
 
-export default function Post({ user, relesead, text, id }) {
+export default function Post({ user, relesead, text, id, emailUser }) {
   return (
     <div id="post">
       <header className="headerPost">
-        <p>{user}</p>
+        <p>{user} {auth.currentUser.email === emailUser && (<span className="badgeMe">Me</span>)}</p>
         <p>{relesead}</p>
       </header>
 

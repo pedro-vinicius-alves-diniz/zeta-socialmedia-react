@@ -42,7 +42,8 @@ export default function Home() {
         textPost: valueText,
         relesead: new Date().toISOString(),
         releseadLocale: new Date().toLocaleString(),
-        comments: []
+        comments: [],
+        emailUser: auth.currentUser.email
       })
       
       setValueText("") // limpa o input
@@ -99,7 +100,7 @@ export default function Home() {
 
           <div className="posts">
             {posts.map((post, index) => {
-              return <Post user={post.user} text={post.textPost} relesead={post.releseadLocale} id={post.id} key={index}/>
+              return <Post user={post.user} text={post.textPost} relesead={post.releseadLocale} id={post.id} emailUser={post.emailUser} key={index}/>
             })}
           </div>
         </div>
