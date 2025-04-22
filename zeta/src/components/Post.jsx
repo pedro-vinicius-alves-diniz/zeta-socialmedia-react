@@ -1,18 +1,26 @@
-import "./Post.css";
+import React from "react";
+import { auth, database } from "../../firebaseConfig";
+import { remove, ref, get } from "firebase/database";
+import { useNavigate } from "react-router-dom";
+
 import { MdDeleteForever } from "react-icons/md";
 import { LiaCommentSolid } from "react-icons/lia";
+import "./Post.css";
 
-import { auth, database } from "../../firebaseConfig";
-
-import { remove, ref, get } from "firebase/database";
-
-import React from "react";
+let userV, releseadV, textV, idV;
 
 export default function Post({ user, relesead, text, id, emailUser }) {
+  const navigate = useNavigate();
+
   return (
     <div id="post">
       <header className="headerPost">
-        <p>{user} {auth.currentUser.email === emailUser && (<span className="badgeMe">Me</span>)}</p>
+        <p>
+          {user}{" "}
+          {auth.currentUser.email === emailUser && (
+            <span className="badgeMe">Me</span>
+          )}
+        </p>
         <p>{relesead}</p>
       </header>
 
@@ -21,53 +29,43 @@ export default function Post({ user, relesead, text, id, emailUser }) {
       </main>
 
       <footer className="footerPost">
-        <button>
+        <button
+          onClick={() => {
+            userV = user;
+            releseadV = relesead;
+            textV = text;
+            idV = id;
+            navigate("/comment");
+          }}
+        >
           <LiaCommentSolid className="btnComments" />
         </button>
 
         {auth.currentUser.displayName === user && (
           <button
             onClick={() => {
-              document.getElementById("confirmDelete").style.display = "flex"
+              const refRemove = ref(database, `posts/${id}`);
+              console.log(refRemove);
+
+              get(refRemove)
+                .then((snapshot) => {
+                  if (snapshot.exists()) {
+                    return remove(refRemove);
+                  } else {
+                    console.log("Post não encontrado");
+                  }
+                })
+                .catch((error) => {
+                  console.log("Erro ao remover post", error);
+                });
             }}
           >
             <MdDeleteForever className="btnDelete" />
           </button>
         )}
-        <div id="confirmDelete" className="invisible">
-          <p>Are you sure you want to delete this post?</p>
-          <div>
-            <button
-              onClick={() => {
-                document.getElementById("confirmDelete").style.display = "none";
-              }}
-            >
-              No
-            </button>
-            <button
-              onClick={() => {
-                const refRemove = ref(database, `posts/${id}`);
-
-                get(refRemove)
-                  .then((snapshot) => {
-                    if (snapshot.exists()) {
-                      return remove(refRemove);
-                    } else {
-                      console.log("Post não encontrado");
-                    }
-                  })
-                  .catch((error) => {
-                    console.log("Erro ao remover post", error);
-                  });
-
-                  document.getElementById("confirmDelete").style.display = "none";
-              }}
-            >
-              Yes
-            </button>
-          </div>
-        </div>
       </footer>
     </div>
   );
 }
+
+export { userV, releseadV, textV, idV };

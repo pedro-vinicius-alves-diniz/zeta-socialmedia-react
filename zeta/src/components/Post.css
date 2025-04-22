@@ -43,6 +43,7 @@
 }
 
 #confirmDelete{
+    z-index: 99;
     position: absolute;
     top: 180%; 
     right: 0%;
